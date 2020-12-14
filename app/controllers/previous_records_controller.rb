@@ -1,0 +1,2 @@
+class PreviousRecordsController < ApplicationController
+end

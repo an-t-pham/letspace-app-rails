@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :reviews
+  resources :previous_records
   resources :tenants
   resources :properties
   resources :landlords
