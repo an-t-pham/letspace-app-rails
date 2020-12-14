@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_14_155427) do
+ActiveRecord::Schema.define(version: 2020_12_14_163154) do
 
   create_table "landlords", force: :cascade do |t|
     t.string "first_name"
@@ -23,4 +23,30 @@ ActiveRecord::Schema.define(version: 2020_12_14_155427) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "properties", force: :cascade do |t|
+    t.string "address"
+    t.string "price"
+    t.string "description"
+    t.string "image_url"
+    t.integer "landlord_id"
+    t.integer "tenant_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["landlord_id"], name: "index_properties_on_landlord_id"
+    t.index ["tenant_id"], name: "index_properties_on_tenant_id"
+  end
+
+  create_table "tenants", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "password_digest"
+    t.string "bio"
+    t.string "image_url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "properties", "landlords"
+  add_foreign_key "properties", "tenants"
 end
