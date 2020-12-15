@@ -1,0 +1,10 @@
+<h1>Hello, <%= @landlord.user.first_name %>!</h1>
+<img src="<%= @landlord.user.image_url %>" alt="<%= @landlord.user.name %> profile photo" height="250" width="200">
+<p>Email: <%= @landlord.user.email %></p>
+<p>Bio: <%= @landlord.user.bio %></p>
+
+
+<a href="#">See All Properties</a>
+  
+<p>Edit Account</p>
+<%= link_to "Log Out", logout_path, method: "post" %>

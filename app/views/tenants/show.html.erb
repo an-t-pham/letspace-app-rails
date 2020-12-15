@@ -1,0 +1,6 @@
+<h1>Hello, <%= @tenant.user.name %>!</h1>
+  <p>Email: <%= @tenant.user.email %></p>
+  <p>Bio: <%= @tenant.user.bio %></p>
+  <a href="#">View All Available Properties</a>
+  <p>Edit Account</p>
+  <%= link_to "Log Out", logout_path, method: "post" %>

@@ -1,5 +1,6 @@
 class LandlordsController < ApplicationController
 
-    def welcome
-    end
+   def show
+     @landlord = Landlord.find(params[:id])
+   end
 end
