@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   get '/landlords/welcome' => 'landlords#welcome', :as => 'landlord_welcome'
   get '/tenants/welcome' => 'tenants#welcome', :as => 'tenant_welcome'
   resources :reviews
-  resources :previous_records
   resources :tenants
   resources :properties
   resources :landlords
