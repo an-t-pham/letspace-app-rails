@@ -1,9 +1,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  landlord: one
-  tenant: one
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  password_digest: MyString
+  bio: MyString
+  image_url: MyString
 
 two:
-  landlord: two
-  tenant: two
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  password_digest: MyString
+  bio: MyString
+  image_url: MyString
