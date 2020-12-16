@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_15_133239) do
+ActiveRecord::Schema.define(version: 2020_12_15_164145) do
 
   create_table "landlords", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -32,11 +32,9 @@ ActiveRecord::Schema.define(version: 2020_12_15_133239) do
     t.string "description"
     t.string "image_url"
     t.integer "landlord_id"
-    t.integer "tenant_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["landlord_id"], name: "index_properties_on_landlord_id"
-    t.index ["tenant_id"], name: "index_properties_on_tenant_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -53,6 +51,8 @@ ActiveRecord::Schema.define(version: 2020_12_15_133239) do
 
   create_table "tenants", force: :cascade do |t|
     t.integer "user_id", null: false
+    t.integer "property_id", null: false
+    t.index ["property_id"], name: "index_tenants_on_property_id"
     t.index ["user_id"], name: "index_tenants_on_user_id"
   end
 
@@ -65,15 +65,15 @@ ActiveRecord::Schema.define(version: 2020_12_15_133239) do
     t.string "image_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "landlord", default: false
+    t.boolean "landlord_checkbox", default: false
   end
 
   add_foreign_key "landlords", "users"
   add_foreign_key "previous_records", "properties"
   add_foreign_key "previous_records", "tenants"
   add_foreign_key "properties", "landlords"
-  add_foreign_key "properties", "tenants"
   add_foreign_key "reviews", "properties"
   add_foreign_key "reviews", "tenants"
+  add_foreign_key "tenants", "properties"
   add_foreign_key "tenants", "users"
 end

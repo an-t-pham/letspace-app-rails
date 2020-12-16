@@ -1,6 +1,8 @@
 class User < ApplicationRecord
-    has_many :landlords
-    has_many :tenants
+    has_one :landlord
+    has_one :tenant
+
+    has_secure_password
 
     def name
         self.first_name + " " + self.last_name

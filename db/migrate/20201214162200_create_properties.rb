@@ -6,7 +6,6 @@ class CreateProperties < ActiveRecord::Migration[6.0]
       t.string :description
       t.string :image_url
       t.belongs_to :landlord, foreign_key: true
-      t.belongs_to :tenant, foreign_key: true
 
       t.timestamps
     end
