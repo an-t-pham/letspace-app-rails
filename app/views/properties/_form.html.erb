@@ -1,0 +1,15 @@
+<%= form_for @property  do |f| %>
+    <%= f.label :address %><br>
+    <%= f.text_field :address %><br>
+    <%= f.label :price %><br>
+    <%= f.text_field :price %><br>
+    <%= f.label :description %><br>
+    <%= f.text_area :description %><br>
+    <%= f.label :image_url %><br>
+    <%= f.text_field :image_url %><br>
+    <%= f.label :tenant, "Current Tenant" %><br>
+    <%= f.collection_radio_buttons  :tenant_id, @available_tenants, :id, :name %><br>
+    <br />
+  
+    <%= f.submit %>
+  <% end %>

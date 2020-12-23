@@ -1,5 +1,8 @@
 class SessionsController < ApplicationController
 
+    def welcome
+    end
+
     def new
         @user = User.new
       end
@@ -7,7 +10,7 @@ class SessionsController < ApplicationController
       def create
         if @user = User.find_by(email: params[:user][:email])
             if @user.landlord
-                landlord = Landlord.find(@user.id)
+                landlord = Landlord.find_by(user_id: @user.id)
                 session[:landlord_id] = landlord.id
 
                 redirect_to landlord_path(landlord)

@@ -2,5 +2,6 @@
 <p><%= image_tag  @property.image_url,  maxHeight: '50%', maxWidth: '50%' %></p>
 <p>Price:<%= @property.price %><p>
 <p>Description:<%= @property.description %><p>
-<p>Edit Property</p>
+<p>Current Tenant: <%= @property.tenant.user.name %><p>
+<p><%= link_to "Edit Property", edit_landlord_property_path(@landlord, @property) %></p>
 <p>Delete Property</p>

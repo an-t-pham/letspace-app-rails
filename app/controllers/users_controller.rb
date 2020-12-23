@@ -33,16 +33,28 @@ class UsersController < ApplicationController
         @user = User.find(params[:id])
         @user.update(user_params)
         if @user.landlord 
-            landlord = Landlord.create(user_id: @user.id)
-            session[:landlord_id] = landlord.id 
+            landlord = Landlord.find(user_id: @user.id)
 
             redirect_to landlord_path(landlord)
         else
-            tenant = Tenant.create(user_id: @user.id)
-            session[:tenant_id] = tenant.id 
-
+            tenant = Tenant.find(user_id: @user.id)
+        
             redirect_to tenant_path(tenant)
         end
+    end
+
+    def destroy
+        @user = User.find(params[:id])
+        if @user.landlord
+           @user.destroy
+          #flash[:notice] = "Account deleted."
+        else 
+            @user.tenant.property.tenant_id = nil
+            @user.tenant.property.save
+            @user.destroy
+        end
+        
+        redirect_to root_path
     end
 
 

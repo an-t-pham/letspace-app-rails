@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-    has_one :landlord
-    has_one :tenant
+    has_one :landlord, dependent: :destroy
+    has_one :tenant, dependent: :destroy
 
     has_secure_password
 

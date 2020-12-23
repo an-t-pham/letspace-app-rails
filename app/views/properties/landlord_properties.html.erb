@@ -1,6 +1,6 @@
 <h1>All of Your Properties</h1>
 <% @properties.each do |property| %>
-  <h4><%= link_to property.address + " - " + property.price, landlord_property_show_path(@landlord, property) %></h4>
+  <h4><%= link_to property.address + " - " + property.price, landlord_property_path(@landlord, property) %></h4>
   <p><%= image_tag  property.image_url,  height: '200', width: '200' %></p>
 <% end %>
 

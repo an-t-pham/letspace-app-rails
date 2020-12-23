@@ -1,0 +1,10 @@
+<h1>Hello, <%= @user.first_name %>!</h1>
+<p><%= image_tag  @user.image_url,  height:'250', width:'200' %></p>
+
+  <p>Full Name: <%= @user.name %></p>
+  <p>Email: <%= @user.email %></p>
+  <p>Bio: <%= @user.bio %></p>
+  
+  <p><%= link_to "Edit Account", edit_user_path(@user) %></p>
+  <p><%= link_to "Delete Account", user_path(@user), method: :delete %></p>
+  <%= link_to "Log Out", logout_path, method: "post" %>

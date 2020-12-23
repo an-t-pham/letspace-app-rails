@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   root 'sessions#welcome'
 
   get '/login' => 'sessions#new'
@@ -11,12 +12,12 @@ Rails.application.routes.draw do
   resources :tenants, only: [:show, :edit]
   
   resources :landlords, only: [:show] do
-    resources :properties, only: [:edit, :update, :new]
-    get '/properties' => 'properties#landlord_properties', :as => 'properties'
+    resources :properties, only: [:edit, :update, :new, :create]
+    get '/properties' => 'properties#landlord_properties', :as => 'properties_show'
     get '/properties/:id' => 'properties#landlord_property', :as => 'property_show'
   end
 
-  resources :landlords, only: [:show, :edit]
+  resources :landlords, only: [:show, :edit, :update]
   resources :properties, only: [:index, :show]
   
 
