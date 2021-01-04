@@ -33,11 +33,11 @@ class UsersController < ApplicationController
         @user = User.find(params[:id])
         @user.update(user_params)
         if @user.landlord 
-            landlord = Landlord.find(user_id: @user.id)
+            landlord = Landlord.find_by(user_id: @user.id)
 
             redirect_to landlord_path(landlord)
         else
-            tenant = Tenant.find(user_id: @user.id)
+            tenant = Tenant.find_by(user_id: @user.id)
         
             redirect_to tenant_path(tenant)
         end

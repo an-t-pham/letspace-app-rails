@@ -7,9 +7,7 @@ class LandlordsController < ApplicationController
 
    def edit
       @landlord = Landlord.find(params[:id])
-
       @user = @landlord.user
-
       redirect_to edit_user_path(@user)
    end
    

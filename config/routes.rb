@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :tenants, only: [:show, :edit]
   
   resources :landlords, only: [:show] do
-    resources :properties, only: [:edit, :update, :new, :create]
+    resources :properties, only: [:edit, :update, :new, :create, :destroy]
     get '/properties' => 'properties#landlord_properties', :as => 'properties_show'
     get '/properties/:id' => 'properties#landlord_property', :as => 'property_show'
   end

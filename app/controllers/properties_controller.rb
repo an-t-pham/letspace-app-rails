@@ -2,11 +2,12 @@ class PropertiesController < ApplicationController
 
     def new
         @property = Property.new(landlord_id: params[:landlord_id])
+        @landlord = Landlord.find(params[:landlord_id])
         @available_tenants = Tenant.all.select {|tenant| !tenant.property}
     end
 
     def index
-        @properties = Property.all
+        @properties = Property.all.select {|property| !property.tenant}
     end
 
     def show
@@ -21,9 +22,9 @@ class PropertiesController < ApplicationController
     end
 
     def create
-        @property = Property.create(property_params)
-        byebug
-        @landlord = @property.landlord
+        @landlord = Landlord.find(params[:landlord_id])
+        @property = @landlord.properties.build(property_params)
+        @property.save
         redirect_to landlord_property_show_path(@landlord, @property)
     end
 
@@ -46,9 +47,24 @@ class PropertiesController < ApplicationController
         
     end
 
+    def destroy
+        @landlord = Landlord.find(params[:landlord_id])
+        @property = Property.find(params[:id])
+        if @property.tenant
+            @property.tenant_id = nil
+            @property.save
+       
+          #flash[:notice] = "Property deleted."
+        end
+        @property.destroy
+        
+        redirect_to landlord_properties_show_path
+    end
+
+
     private
     def property_params
-        params.require(:user).permit(:address, :price, :description, :image_url)
+        params.require(:property).permit(:address, :price, :description, :image_url)
     end
     
 end
