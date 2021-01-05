@@ -4,6 +4,7 @@ class PropertiesController < ApplicationController
         @property = Property.new(landlord_id: params[:landlord_id])
         @landlord = Landlord.find(params[:landlord_id])
         @available_tenants = Tenant.all.select {|tenant| !tenant.property}
+        @url = landlord_properties_show_path
     end
 
     def index
@@ -17,8 +18,11 @@ class PropertiesController < ApplicationController
     def edit
         @landlord = Landlord.find(params[:landlord_id])
         @property = Property.find(params[:id])
-        @available_tenants = Tenant.all.select {|tenant| !tenant.property}
-   
+        tenant = Tenant.find(@property.tenant_id) 
+        tenants = Tenant.all.select {|tenant| !tenant.property} 
+        @available_tenants = tenants << tenant
+        @url = landlord_property_show_path(@landlord, @property)
+ 
     end
 
     def create
@@ -64,7 +68,7 @@ class PropertiesController < ApplicationController
 
     private
     def property_params
-        params.require(:property).permit(:address, :price, :description, :image_url)
+        params.require(:property).permit(:address, :price, :description, :image_url, :tenant_id)
     end
     
 end

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   post '/logout' => 'sessions#destroy'
   
   resources :users
-  resources :reviews
+
   resources :tenants, only: [:show, :edit]
   
   resources :landlords, only: [:show] do
@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   end
 
   resources :landlords, only: [:show, :edit, :update]
-  resources :properties, only: [:index, :show]
+  resources :properties, only: [:index, :show] do
+    resources :reviews, only: [:new, :index]
+  end
   
 
   

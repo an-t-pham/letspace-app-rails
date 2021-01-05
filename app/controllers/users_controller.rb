@@ -45,15 +45,14 @@ class UsersController < ApplicationController
 
     def destroy
         @user = User.find(params[:id])
-        if @user.landlord
-           @user.destroy
-          #flash[:notice] = "Account deleted."
-        else 
-            @user.tenant.property.tenant_id = nil
-            @user.tenant.property.save
-            @user.destroy
+        if @user.tenant 
+           if @user.tenant.property 
+              @user.tenant.property.tenant_id = nil
+              @user.tenant.property.save
+           end
         end
-        
+        @user.destroy
+        #flash[:notice] = "Account deleted."
         redirect_to root_path
     end
 

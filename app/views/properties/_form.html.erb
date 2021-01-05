@@ -1,4 +1,4 @@
-<%= form_for @property, url: landlord_properties_show_path  do |f| %>
+<%= form_for @property, url: @url  do |f| %>
     <%= f.label :address %><br>
     <%= f.text_field :address %><br>
     <%= f.label :price %><br>
@@ -8,7 +8,8 @@
     <%= f.label :image_url %><br>
     <%= f.text_field :image_url %><br>
     <%= f.label :tenant, "Current Tenant" %><br>
-    <%= f.collection_radio_buttons  :tenant_id, @available_tenants, :id, :name %><br>
+    <%= f.collection_select  :tenant_id, @available_tenants, :id, :name, :include_blank => "No Tenant" %><br>
+    
     <br />
   
     <%= f.submit %>

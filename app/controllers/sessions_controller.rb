@@ -8,7 +8,8 @@ class SessionsController < ApplicationController
       end
     
       def create
-        if @user = User.find_by(email: params[:user][:email])
+        @user = User.find_by(email: params[:user][:email])
+        if @user && @user.authenticate(params[:user][:password])
             if @user.landlord
                 landlord = Landlord.find_by(user_id: @user.id)
                 session[:landlord_id] = landlord.id
@@ -21,7 +22,8 @@ class SessionsController < ApplicationController
                 redirect_to tenant_path(tenant)
             end
         else
-            render :new
+          flash[:error] = "Your email and/or password were invalid. Please try again!"
+          redirect_to login_path
         end
       end
     
