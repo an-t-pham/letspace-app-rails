@@ -1,0 +1,10 @@
+<h1> <%= @property.address %> </h1>
+<p><%= image_tag  @property.image_url,  maxHeight: '50%', maxWidth: '50%' %></p>
+<p>Price:<%= @property.price %><p>
+<p>Description:<%= @property.description %><p>
+
+<% if !@review %>
+   <p><%= link_to "Leave a review", new_tenant_property_review_path(@tenant, @property)%></p>
+<% else %>
+   <p><%= @review.rating %></p>
+<% end %>

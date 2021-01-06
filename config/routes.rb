@@ -9,18 +9,25 @@ Rails.application.routes.draw do
   
   resources :users
 
-  resources :tenants, only: [:show, :edit]
+  resources :tenants, only: [:show, :edit] do
+    resources :properties, only: [:index] do
+      resources :reviews, only: [:new, :edit, :update, :destroy, :show]
+      post '/reviews/:id' => 'reviews#create'
+    end
+
+    get '/properties/:id' => 'properties#tenant_property', :as => 'previous_property'
+  end
   
-  resources :landlords, only: [:show] do
+  resources :landlords, only: [:show, :edit] do
     resources :properties, only: [:edit, :update, :new, :create, :destroy]
     get '/properties' => 'properties#landlord_properties', :as => 'properties_show'
     get '/properties/:id' => 'properties#landlord_property', :as => 'property_show'
   end
 
   resources :landlords, only: [:show, :edit, :update]
-  resources :properties, only: [:index, :show] do
-    resources :reviews, only: [:new, :index]
-  end
+
+  resources :properties, only: [:index, :show]
+  
   
 
   

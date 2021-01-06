@@ -11,7 +11,7 @@
   <%= f.text_field :bio %><br>
   <%= f.label :image_url %><br>
   <%= f.text_field :image_url %><br>
-  <% if !@isEdit %>
+  <% if !@edit %>
     <%= f.label :landlord_checkbox, "Check box if you are a landlord" %>
     <%= f.hidden_field :landlord_checkbox, value: "0" %>
     <%= f.check_box :landlord_checkbox %><br>

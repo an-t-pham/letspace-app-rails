@@ -1,3 +1,12 @@
 <%= render partial: 'users/show' %>
 
+<p>Current Address: <%= link_to @tenant.property.address, property_path(@tenant.property) if @tenant.property %></p>
+<% if !@tenant.previous_properties.empty? %>
+<p>Previous Addresses:</p>
+  <ul>
+    <% @tenant.previous_properties.each do |property| %>
+        <li><%= link_to property.address, tenant_previous_property_path(@tenant, property) %></li>
+    <% end %>
+  </ul>
+<% end %>
 <p><%= link_to "View All Available Properties", properties_path %></p>

@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Review.destroy_all
 PreviousRecord.destroy_all
 Property.destroy_all
 Tenant.destroy_all
@@ -40,3 +41,5 @@ PreviousRecord.create(property_id: dulverton.id, tenant_id: wendy1.id)
 PreviousRecord.create(property_id: camplin.id, tenant_id: wendy1.id)
 PreviousRecord.create(property_id: london.id, tenant_id: hook1.id)
 PreviousRecord.create(property_id: camplin.id, tenant_id: peter1.id)
+
+Review.create(rating: 5, title: "A good review", content: "nice house & neighbours", property_id: camplin.id, tenant_id: peter1.id)

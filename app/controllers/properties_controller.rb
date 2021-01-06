@@ -18,9 +18,10 @@ class PropertiesController < ApplicationController
     def edit
         @landlord = Landlord.find(params[:landlord_id])
         @property = Property.find(params[:id])
-        tenant = Tenant.find(@property.tenant_id) 
+        @@tenant_id = @property.tenant_id
+        tenant = Tenant.find(@@tenant_id) 
         tenants = Tenant.all.select {|tenant| !tenant.property} 
-        @available_tenants = tenants << tenant
+        tenant ? @available_tenants = tenants << tenant : @available_tenants = tenants
         @url = landlord_property_show_path(@landlord, @property)
  
     end
@@ -35,7 +36,12 @@ class PropertiesController < ApplicationController
     def update
         @landlord = Landlord.find(params[:landlord_id])
         @property = Property.find(params[:id])
+        @previous_tenant = Tenant.find(@@tenant_id)
         @property.update(property_params)
+        if  @@tenant_id && @@tenant_id != @property.tenant_id && !@property.previous_tenants.include?(@previous_tenant)
+               @property.previous_tenants << @previous_tenant
+               @property.save
+        end
 
         redirect_to landlord_property_show_path(@landlord, @property)
     end
@@ -49,6 +55,13 @@ class PropertiesController < ApplicationController
         @landlord = Landlord.find(params[:landlord_id])
         @property = Property.find(params[:id])
         
+    end
+
+    def tenant_property
+        @tenant = Tenant.find(params[:tenant_id])
+        @property = Property.find(params[:id])
+        @review = Review.find_by(tenant_id: params[:tenant_id], property_id: params[:property_id])
+        byebug
     end
 
     def destroy

@@ -26,7 +26,7 @@ class UsersController < ApplicationController
 
     def edit
         @user = User.find(params[:id])
-        @isEdit = true
+        @edit = true
     end
 
     def update
