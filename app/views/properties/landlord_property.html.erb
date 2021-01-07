@@ -3,8 +3,29 @@
 <p>Price:<%= @property.price %></p>
 <p>Description:<%= @property.description %></p>
 <% if @property.tenant %>
-   <p>Current Tenant: <%= @property.tenant.user.name %></p>
+   <p>Current Tenant: <%= @property.tenant.user.name %> - Contact info: <%= @property.tenant.user.email %></p>
 <% end %>
+<% if !@property.previous_tenants.empty? %>
+   <p>Previous Tenants: </p>
+   <ul>
+     <% @property.previous_tenants.each do |tenant| %>
+      <li><%= tenant.user.name %> - Contact info: <%= tenant.user.email %></li>
+  <% end %>
+   </ul>
+<% end %>
+<% if !@reviews.empty? %>
+  <p>Reviews:</p>
+  <ol>
+    <% @reviews.each do |review| %>
+      <li><ul>
+            <li>Rating: <%= review.rating %></li>
+            <li>Title: <%= review.title %></li>
+            <li>Content: <%= review.content %></li>
+      </li></ul><br>
+    <% end %>
+  </ol>
+<% end %>
+
 <p><%= link_to "Edit Property", edit_landlord_property_path(@landlord, @property) %></p>
 <p><%= link_to "Delete Property", landlord_property_path(@landlord, @property), method: :delete %></p>
-<p><%= link_to 'Back', :back %></p>
+<p><%= link_to 'Back', landlord_properties_show_path(@landlord)%></p>

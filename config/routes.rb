@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   resources :tenants, only: [:show, :edit] do
     resources :properties, only: [:index] do
       resources :reviews, only: [:new, :edit, :update, :destroy, :show]
-      post '/reviews/:id' => 'reviews#create'
+        post '/' => 'reviews#create'
+        patch '/' => 'reviews#update'
+        put '/' => 'reviews#update'
     end
 
     get '/properties/:id' => 'properties#tenant_property', :as => 'previous_property'

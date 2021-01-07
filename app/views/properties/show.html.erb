@@ -3,4 +3,17 @@
 <p>Price:<%= @property.price %><p>
 <p>Description:<%= @property.description %><p>
 <p>If interested, please contact <%= @property.landlord.user.name %> at <%= @property.landlord.user.email %>!</a></p>
-<p><%= link_to 'Back', :back %></p>
+
+<% if !@reviews.empty? %>
+  <p>Reviews:</p>
+  <ol>
+    <% @reviews.each do |review| %>
+      <li><ul>
+            <li>Rating: <%= review.rating %></li>
+            <li>Title: <%= review.title %></li>
+            <li>Content: <%= review.content %></li>
+      </li></ul><br>
+    <% end %>
+  </ol>
+<% end %>
+<p><%= link_to 'Back', properties_path %></p>

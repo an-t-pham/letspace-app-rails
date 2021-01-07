@@ -1,4 +1,5 @@
 class PropertiesController < ApplicationController
+    @@tenant_id
 
     def new
         @property = Property.new(landlord_id: params[:landlord_id])
@@ -9,19 +10,23 @@ class PropertiesController < ApplicationController
 
     def index
         @properties = Property.all.select {|property| !property.tenant}
+        @tenant = Tenant.find(session[:tenant_id])
     end
 
     def show
         @property = Property.find(params[:id])
+        @reviews = Review.all.select {|review| review.property_id == @property.id}
+        @tenant = Tenant.find(session[:tenant_id])
     end
 
     def edit
         @landlord = Landlord.find(params[:landlord_id])
         @property = Property.find(params[:id])
-        @@tenant_id = @property.tenant_id
-        tenant = Tenant.find(@@tenant_id) 
-        tenants = Tenant.all.select {|tenant| !tenant.property} 
-        tenant ? @available_tenants = tenants << tenant : @available_tenants = tenants
+        @available_tenants = Tenant.all.select {|tenant| !tenant.property} 
+        @@tenant_id = @property.tenant_id 
+        tenant = Tenant.find(@@tenant_id) if @@tenant_id
+   
+        tenant ? @available_tenants << tenant : @available_tenants 
         @url = landlord_property_show_path(@landlord, @property)
  
     end
@@ -36,7 +41,7 @@ class PropertiesController < ApplicationController
     def update
         @landlord = Landlord.find(params[:landlord_id])
         @property = Property.find(params[:id])
-        @previous_tenant = Tenant.find(@@tenant_id)
+        @previous_tenant = Tenant.find(@@tenant_id) if @@tenant_id
         @property.update(property_params)
         if  @@tenant_id && @@tenant_id != @property.tenant_id && !@property.previous_tenants.include?(@previous_tenant)
                @property.previous_tenants << @previous_tenant
@@ -54,14 +59,13 @@ class PropertiesController < ApplicationController
     def landlord_property
         @landlord = Landlord.find(params[:landlord_id])
         @property = Property.find(params[:id])
-        
+        @reviews = Review.all.select {|review| review.property_id == @property.id}
     end
 
     def tenant_property
         @tenant = Tenant.find(params[:tenant_id])
         @property = Property.find(params[:id])
-        @review = Review.find_by(tenant_id: params[:tenant_id], property_id: params[:property_id])
-        byebug
+        @review = Review.find_by(tenant_id: params[:tenant_id], property_id: params[:id])
     end
 
     def destroy
@@ -73,6 +77,7 @@ class PropertiesController < ApplicationController
        
           #flash[:notice] = "Property deleted."
         end
+        @property.reviews.destroy_all
         @property.destroy
         
         redirect_to landlord_properties_show_path

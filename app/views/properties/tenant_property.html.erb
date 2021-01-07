@@ -4,7 +4,16 @@
 <p>Description:<%= @property.description %><p>
 
 <% if !@review %>
-   <p><%= link_to "Leave a review", new_tenant_property_review_path(@tenant, @property)%></p>
+   <p><%= link_to "Leave a Review", new_tenant_property_review_path(@tenant, @property)%></p>
 <% else %>
-   <p><%= @review.rating %></p>
+   <p>Your Review:</p>
+   <ul>
+      <li>Rating: <%= @review.rating %></li>
+      <li>Title: <%= @review.title %></li>
+      <li>Content: <%= @review.content %></li>
+   </ul>
+   <p><%= link_to "Edit Review", edit_tenant_property_review_path(@tenant, @property, @review)%></p>
+   <%= link_to "Delete Review", tenant_property_review_path(@tenant, @property, @review), method: :delete%></p>
 <% end %>
+
+<p><%= link_to "Back", tenant_path(@tenant)%></p>

@@ -1,6 +1,6 @@
 <%= render partial: 'users/show' %>
 
-<p>Current Address: <%= link_to @tenant.property.address, property_path(@tenant.property) if @tenant.property %></p>
+<p>Current Address: <%= link_to @tenant.property.address, tenant_previous_property_path(@tenant, @tenant.property) if @tenant.property %></p>
 <% if !@tenant.previous_properties.empty? %>
 <p>Previous Addresses:</p>
   <ul>

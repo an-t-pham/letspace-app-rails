@@ -50,6 +50,10 @@ class UsersController < ApplicationController
               @user.tenant.property.tenant_id = nil
               @user.tenant.property.save
            end
+           @user.tenant.reviews.destroy_all
+        else
+            @user.landlord.properties.each {|property| property.reviews.destroy_all}
+            @user.landlord.properties.destroy_all
         end
         @user.destroy
         #flash[:notice] = "Account deleted."
