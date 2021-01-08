@@ -34,8 +34,11 @@ class PropertiesController < ApplicationController
     def create
         @landlord = Landlord.find(params[:landlord_id])
         @property = @landlord.properties.build(property_params)
-        @property.save
-        redirect_to landlord_property_show_path(@landlord, @property)
+        if @property.save
+          redirect_to landlord_property_show_path(@landlord, @property)
+        else
+          redirect_to new_landlord_property_path(@landlord)
+        end
     end
 
     def update

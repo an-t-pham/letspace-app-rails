@@ -4,5 +4,6 @@ class Property < ApplicationRecord
     has_many :previous_records, dependent: :destroy
     has_many :previous_tenants, through: :previous_records, source: :tenant
     has_many :reviews
-
+    
+    validates :address, :price, :description, presence: true
 end

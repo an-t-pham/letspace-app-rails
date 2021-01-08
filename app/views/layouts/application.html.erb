@@ -10,6 +10,14 @@
   </head>
 
   <body>
+  <div class="wrapper">
+  <% if flash[:error] %>
+  <h3 style="color:lightpink; text-align:center; padding-top: 20px; background:grey; padding-bottom:20px; margin-bottom: 0;"><%= flash[:error]%></h3>
+  <% end %>
+
+  <% if flash[:message] %>
+  <h3 style="color:lightblue; text-align:center; padding-top: 20px; background:grey; padding-bottom:20px; margin-bottom: 0;"><%= flash[:message]%></h3>
+  <% end %>
     <%= yield %>
   </body>
 </html>

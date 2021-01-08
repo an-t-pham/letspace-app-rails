@@ -3,6 +3,7 @@ class User < ApplicationRecord
     has_one :tenant, dependent: :destroy
 
     validates :email, uniqueness: true,  presence: true
+    validates :first_name, :last_name, presence: true
 
     has_secure_password
 
