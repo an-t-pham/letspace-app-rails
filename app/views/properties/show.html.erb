@@ -12,6 +12,7 @@
             <li>Stars: <%= review.rating %>/5</li>
             <li>Title: <%= review.title %></li>
             <li>Content: <%= review.content %></li>
+            <li>Reviewed by: <%= review.tenant.user.name %></li>
       </li></ul><br>
     <% end %>
   </ol>

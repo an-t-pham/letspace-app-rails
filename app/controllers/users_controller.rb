@@ -7,8 +7,7 @@ class UsersController < ApplicationController
     def create
         @user = User.new(user_params)
         if @user.save
-            session[:user_id] = @user.id
-            if @user.landlord 
+            if @user.landlord_checkbox
                 landlord = Landlord.create(user_id: @user.id)
                 session[:landlord_id] = landlord.id 
                 redirect_to landlord_path(landlord)
@@ -19,52 +18,107 @@ class UsersController < ApplicationController
                 redirect_to tenant_path(tenant)
             end
         else
+            flash[:error] = "Unable to create a profile: #{@user.errors.full_messages.to_sentence}"
             render :new
         end
             
     end
 
     def edit
-        @user = User.find(params[:id])
-        byebug
-        @edit = true
+        if logged_in?
+          @user = User.find_by_id(params[:id])
+
+          if user_authorized?(@user)
+             @edit = true 
+             render :edit
+          else 
+            @user = User.find(session[:user_id])
+            flash[:error] = "Not authorized to access this profile!"
+
+            if @user.landlord_checkbox
+                @landlord = Landlord.find_by(user_id: @user.id)
+                redirect_to landlord_path(@landlord)
+            else
+                @tenant = Tenant.find_by(user_id: @user.id)
+                redirect_to tenant_path(@tenant)
+            end
+          end
+        
+        else
+          flash[:error] = "You're not logged in!"
+          redirect_to login_path
+        end
     end
 
     def update
-        @user = User.find(params[:id])
-        @user.update(user_params)
-        if @user.landlord 
-            landlord = Landlord.find_by(user_id: @user.id)
+        if logged_in?
+          @user = User.find_by_id(params[:id])
+          if user_authorized?(@user)
+             @user.update(user_params)
+             if @user.landlord 
+                 landlord = Landlord.find_by(user_id: @user.id)
 
-            redirect_to landlord_path(landlord)
-        else
-            tenant = Tenant.find_by(user_id: @user.id)
+                 redirect_to landlord_path(landlord)
+             else
+                 tenant = Tenant.find_by(user_id: @user.id)
         
-            redirect_to tenant_path(tenant)
+                 redirect_to tenant_path(tenant)
+             end
+          else
+            @user = User.find_by_id(session[:user_id])
+            flash[:error] = "Not authorized to access this profile!"
+
+            if @user.landlord_checkbox
+                @landlord = Landlord.find_by(user_id: @user.id)
+                redirect_to landlord_path(@landlord)
+            else
+                @tenant = Tenant.find_by(user_id: @user.id)
+                redirect_to tenant_path(@tenant)
+            end
+          end
+        else
+          
         end
     end
 
     def destroy
-        @user = User.find(params[:id])
-        if @user.tenant 
-           if @user.tenant.property 
-              @user.tenant.property.tenant_id = nil
-              @user.tenant.property.save
-           end
-           @user.tenant.reviews.destroy_all
+        if logged_in?
+          @user = User.find_by_id(params[:id])
+          if user_authorized?(@user)
+             if @user.tenant 
+               @user.tenant.reviews.destroy_all if @user.tenant.reviews
+               @user.tenant.property.tenant_id = nil if @user.tenant.property 
+               @user.tenant.save
+             else
+                @user.landlord.properties.each {|property| property.reviews.destroy_all}
+                @user.landlord.properties.destroy_all
+             end
+             @user.destroy
+             flash[:message] = "Account deleted."
+             redirect_to root_path
+          else
+            @user = User.find_by_id(session[:user_id])
+            flash[:error] = "Not authorized to access this profile!"
+
+            if @user.landlord_checkbox
+                @landlord = Landlord.find_by(user_id: @user.id)
+                redirect_to landlord_path(@landlord)
+            else
+                @tenant = Tenant.find_by(user_id: @user.id)
+                redirect_to tenant_path(@tenant)
+            end
+          end
+          
         else
-            @user.landlord.properties.each {|property| property.reviews.destroy_all}
-            @user.landlord.properties.destroy_all
+          flash[:error] = "You're not logged in!"
+          redirect_to login_path
         end
-        @user.destroy
-        #flash[:notice] = "Account deleted."
-        redirect_to root_path
     end
 
 
 
     private
     def user_params
-        params.require(:user).permit(:first_name, :last_name, :email, :password_digest, :bio, :image_url)
+        params.require(:user).permit(:first_name, :last_name, :email, :password, :bio, :image_url, :landlord_checkbox)
     end
 end

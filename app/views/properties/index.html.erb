@@ -3,4 +3,5 @@
   <h4><%= link_to property.address + " - " + property.price, property_path(property) %></h4>
   <p><%= image_tag  property.image_url,  height: '200', width: '200' %></p>
 <% end %>
-<p><%= link_to 'Back', tenant_path(@tenant)%></p>
+<p><%= link_to 'Back', tenant_path(@tenant) if @tenant%></p>
+<p><%= link_to 'Back', landlord_path(@landlord) if @landlord%></p>

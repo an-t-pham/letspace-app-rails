@@ -12,8 +12,13 @@ class TenantsController < ApplicationController
                redirect_to tenant_path(@tenant)
             end
          else
-            flash[:error] = "You're not logged in!"
-            redirect_to login_path
+            flash[:error] = "You're not logged in as this tenant!"
+            if landlord_logged_in?
+               landlord = Landlord.find_by_id(session[:landlord_id])
+               redirect_to landlord_path(landlord)
+             else
+                 redirect_to login_path
+             end
          end   
     end
 
@@ -29,8 +34,13 @@ class TenantsController < ApplicationController
             redirect_to tenant_path(@tenant)
         end
       else
-        flash[:error] = "You're not logged in!"
-        redirect_to login_path
+         flash[:error] = "You're not logged in as this tenant!"
+         if landlord_logged_in?
+            landlord = Landlord.find_by_id(session[:landlord_id])
+            redirect_to landlord_path(landlord)
+          else
+              redirect_to login_path
+          end
       end
    end
 end

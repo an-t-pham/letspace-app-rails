@@ -9,6 +9,10 @@ class ApplicationController < ActionController::Base
            !!current_user
         end
 
+        def user_authorized?(user)
+           user == current_user
+      end
+
         def current_landlord
             @current_landlord ||= Landlord.find_by(id: session[:landlord_id])
         end

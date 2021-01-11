@@ -13,8 +13,13 @@ class ReviewsController < ApplicationController
             redirect_to tenant_path(@tenant)
           end
         else
-           flash[:error] = "You're not logged in!"
-           redirect_to login_path
+            flash[:error] = "Not authorized to access this profile!"
+            if landlord_logged_in?
+                landlord = Landlord.find_by_id(session[:landlord_id])
+                redirect_to landlord_path(landlord)
+            else
+                  redirect_to login_path
+            end
         end
     end
 
@@ -37,33 +42,82 @@ class ReviewsController < ApplicationController
             redirect_to tenant_path(@tenant)
           end
         else
-            flash[:error] = "You're not logged in!"
-            redirect_to login_path
+            flash[:error] = "Not authorized to access this profile!"
+            if landlord_logged_in?
+                landlord = Landlord.find_by_id(session[:landlord_id])
+                redirect_to landlord_path(landlord)
+            else
+                  redirect_to login_path
+            end
         end
     end
     
     def edit
-        @tenant = Tenant.find(params[:tenant_id])
-        @property = Property.find(params[:property_id])
-        @review = Review.find(params[:id])
-        @@review_id = @review.id
-
-        @url = tenant_previous_property_path(@tenant, @property)
+        if tenant_logged_in?
+           @tenant = Tenant.find(params[:tenant_id])
+           @property = Property.find(params[:property_id])
+           @review = Review.find(params[:id])
+          if authorized_to_edit_review?(@review)
+            @@review_id = @review.id
+            @url = tenant_previous_property_path(@tenant, @property)
+          else
+            flash[:error] = "Not authorized to edit this review"
+            redirect_to tenant_path(@tenant)
+          end
+        else
+            flash[:error] = "Not authorized to access this profile!"
+            if landlord_logged_in?
+                landlord = Landlord.find_by_id(session[:landlord_id])
+                redirect_to landlord_path(landlord)
+            else
+                  redirect_to login_path
+            end
+        end
     end
 
 
     def update
-        @tenant = Tenant.find(params[:tenant_id])
-        @property = Property.find(params[:property_id])
-        @review = Review.find(@@review_id)
-        @review.update(review_params)
-        redirect_to tenant_property_review_path(@tenant, @property, @review)
+        if tenant_logged_in?
+           @tenant = Tenant.find(params[:tenant_id])
+           @property = Property.find(params[:property_id])
+           @review = Review.find(@@review_id)
+           if authorized_to_edit_review?(@review)
+              @review.update(review_params)
+              redirect_to tenant_property_review_path(@tenant, @property, @review)
+           else
+              flash[:error] = "Not authorized to edit this review"
+              redirect_to tenant_path(@tenant)
+           end
+        else
+            flash[:error] = "Not authorized to access this profile!"
+            if landlord_logged_in?
+                landlord = Landlord.find_by_id(session[:landlord_id])
+                redirect_to landlord_path(landlord)
+            else
+                  redirect_to login_path
+            end
+        end
     end
 
     def show
-        @tenant = Tenant.find(params[:tenant_id])
-        @property = Property.find(params[:property_id])
-        redirect_to tenant_property_path(@tenant, @property)
+        if tenant_logged_in?
+           @tenant = Tenant.find(params[:tenant_id])
+           if tenant_authorized?(@tenant)
+             @property = Property.find(params[:property_id])
+             redirect_to tenant_property_path(@tenant, @property)
+           else
+              flash[:error] = "Not authorized to edit this review"
+              redirect_to tenant_path(@tenant)
+           end
+        else
+            flash[:error] = "Not authorized to access this profile!"
+            if landlord_logged_in?
+                landlord = Landlord.find_by_id(session[:landlord_id])
+                redirect_to landlord_path(landlord)
+            else
+                  redirect_to login_path
+            end
+        end
     end
 
     def destroy
