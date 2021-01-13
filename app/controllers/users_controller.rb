@@ -18,7 +18,6 @@ class UsersController < ApplicationController
                 redirect_to tenant_path(tenant)
             end
         else
-            flash[:error] = "Unable to create a profile: #{@user.errors.full_messages.to_sentence}"
             render :new
         end
             
@@ -86,9 +85,8 @@ class UsersController < ApplicationController
           @user = User.find_by_id(params[:id])
           if user_authorized?(@user)
              if @user.tenant 
-               @user.tenant.reviews.destroy_all if @user.tenant.reviews
-               @user.tenant.property.tenant_id = nil if @user.tenant.property 
-               @user.tenant.save
+               @user.tenant.property.tenant_id = nil if @user.tenant.property.tenant_id
+               @user.tenant.property.save
              else
                 @user.landlord.properties.each {|property| property.reviews.destroy_all}
                 @user.landlord.properties.destroy_all

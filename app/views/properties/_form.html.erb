@@ -1,3 +1,5 @@
+<%= render partial: 'layouts/errors', locals: {obj: @property} %>
+
 <%= form_for @property, url: @url  do |f| %>
     <%= f.label :address %><br>
     <%= f.text_field :address %><br>

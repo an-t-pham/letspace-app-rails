@@ -1,6 +1,11 @@
 <h1>All Available Properties</h1>
+
+<%= form_for @property do |f| %>
+  <%= f.select :filter, ['Highest Rating', 'Lowest Rating', 'Cheapest', 'Most Expensive'], prompt: 'Pick a filter option' %>
+  <%= f.submit 'Submit' %>
+<% end %>
 <% @properties.each do |property| %>
-  <h4><%= link_to property.address + " - " + property.price, property_path(property) %></h4>
+  <h4><%= link_to "#{property.address}  - £#{property.price}pcm", property_path(property) %></h4>
   <p><%= image_tag  property.image_url,  height: '200', width: '200' %></p>
 <% end %>
 <p><%= link_to 'Back', tenant_path(@tenant) if @tenant%></p>

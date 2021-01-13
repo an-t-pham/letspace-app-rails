@@ -29,10 +29,10 @@ lisa1 = Tenant.create(user_id: lisa.id)
 homer1 = Tenant.create(user_id: homer.id)
 
 
-dulverton = Property.create(address: "123 Dulverton Court", price: "£800pcm", description: "located in central", image_url: "https://assets.themodernhouse.com/wp-content/uploads/2019/12/The-Coach-House-St-Donatts-Road-London-SE14-21-1-1600x1067.jpg", landlord_id: jane1.id, tenant_id: peter1.id)
-london = Property.create(address: "7 London Road", price: "£1000pcm", description: "big and clean house", image_url: "https://www.idesignarch.com/wp-content/uploads/Hyde-Park-Mews_1-1024x683.jpg", landlord_id: jane1.id, tenant_id: wendy1.id)
-camplin = Property.create(address: "43 Camplin Street", price: "£500pcm", description: "affordable house", image_url: "https://i.pinimg.com/originals/a3/4a/81/a34a81d706ca05ba8646d52de7167212.jpg", landlord_id: john1.id, tenant_id: hook1.id)
-kent = Property.create(address: "21 Old Kent Road", price: "£600pcm", description: "new house", image_url: "https://i.pinimg.com/originals/a3/4a/81/a34a81d706ca05ba8646d52de7167212.jpg", landlord_id: john1.id)
+dulverton = Property.create(address: "123 Dulverton Court", price: 800, description: "located in central", image_url: "https://assets.themodernhouse.com/wp-content/uploads/2019/12/The-Coach-House-St-Donatts-Road-London-SE14-21-1-1600x1067.jpg", landlord_id: jane1.id, tenant_id: peter1.id)
+london = Property.create(address: "7 London Road", price: 1000, description: "big and clean house", image_url: "https://www.idesignarch.com/wp-content/uploads/Hyde-Park-Mews_1-1024x683.jpg", landlord_id: jane1.id, tenant_id: wendy1.id)
+camplin = Property.create(address: "43 Camplin Street", price: 500, description: "affordable house", image_url: "https://i.pinimg.com/originals/a3/4a/81/a34a81d706ca05ba8646d52de7167212.jpg", landlord_id: john1.id, tenant_id: hook1.id)
+kent = Property.create(address: "21 Old Kent Road", price: 600, description: "new house", image_url: "https://i.pinimg.com/originals/a3/4a/81/a34a81d706ca05ba8646d52de7167212.jpg", landlord_id: john1.id)
 
 
 

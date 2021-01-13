@@ -1,3 +1,5 @@
+<%= render partial: 'layouts/errors', locals: {obj: @review} %>
+
 <%= form_for @review, url: @url  do |f| %>
     <%= f.label :rating, "How many stars would you rate this property? (1-5)" %><br>
     <%= f.number_field :rating, min:1, max:5 %><br>

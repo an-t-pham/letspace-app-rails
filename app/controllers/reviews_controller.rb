@@ -34,8 +34,8 @@ class ReviewsController < ApplicationController
              if @review.save
                  redirect_to tenant_property_review_path(@tenant, @property, @review)
              else
-                 flash[:error] = "Unable to add review: #{@review.errors.full_messages.to_sentence}"
-                 redirect_to new_tenant_property_review_path(@tenant, @property)
+                @url = tenant_previous_property_path(@tenant, @property)
+                render :new
              end
           else
             flash[:error] = "Not authorized to leave a review on this property!"
@@ -121,13 +121,27 @@ class ReviewsController < ApplicationController
     end
 
     def destroy
-        @tenant = Tenant.find(params[:tenant_id])
-        @property = Property.find(params[:property_id])
-        @review = Review.find(params[:id])
-        
-        @review.destroy
-        
-        redirect_to tenant_previous_property_path(@tenant, @property)
+        if tenant_logged_in?
+          @tenant = Tenant.find(params[:tenant_id])
+          @property = Property.find(params[:property_id])
+          @review = Review.find(params[:id])
+          if authorized_to_edit_review?(@review)
+             @review.destroy
+             redirect_to tenant_previous_property_path(@tenant, @property)
+          else
+            flash[:error] = "Not authorized to delete this review"
+            redirect_to tenant_path(@tenant)
+          end
+
+        else
+            flash[:error] = "Not authorized to delete this review!"
+            if landlord_logged_in?
+                landlord = Landlord.find_by_id(session[:landlord_id])
+                redirect_to landlord_path(landlord)
+            else
+                  redirect_to login_path
+            end
+        end
     end
 
     private

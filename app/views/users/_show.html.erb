@@ -1,5 +1,5 @@
 <h1>Hello, <%= @user.first_name %>!</h1>
-<p><%= image_tag  @user.image_url,  height:'250', width:'200' %></p>
+<p><%= image_tag  @user.image_url,  height:'250', width:'200' if @user.image_url %></p>
 
   <p>Full Name: <%= @user.name %></p>
   <p>Email: <%= @user.email %></p>

@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   resources :landlords, only: [:show, :edit, :update]
 
   resources :properties, only: [:index, :show]
+   post '/properties' => 'properties#filter_properties', :as => 'filter_properties'
   
   
 

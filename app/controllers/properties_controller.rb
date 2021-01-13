@@ -24,15 +24,58 @@ class PropertiesController < ApplicationController
         end
     end
 
+    def create
+        if landlord_logged_in?
+           @landlord = Landlord.find_by_id(params[:landlord_id])
+            if landlord_authorized?(@landlord)
+              @property = @landlord.properties.build(property_params)
+              if @property.save
+                  redirect_to landlord_property_show_path(@landlord, @property)
+              else
+                @available_tenants = Tenant.all.select {|tenant| !tenant.property}
+                render :new
+              end
+           else
+              flash[:error] = "Not authorized to access this profile!"
+              redirect_to landlord_path(@landlord)
+           end
+        else
+            flash[:error] = "Not authorized to create this property!"
+            if tenant_logged_in?
+                tenant = Tenant.find_by_id(session[:tenant_id])
+                redirect_to tenant_path(tenant)
+            else
+                  redirect_to login_path
+            end
+        end
+
+    end
+
     def index
         if logged_in?
-           @properties = Property.all.select {|property| !property.tenant}
+            if session[:filter_properties] == "Highest Rating"
+               @properties = Property.order_by_high_rating.select {|property| !property.tenant}
+            elsif session[:filter_properties] == "Lowest Rating"
+                @properties = Property.order_by_low_rating.select {|property| !property.tenant}
+            elsif session[:filter_properties] == "Cheapest"
+               @properties = Property.order_by_cheap.select {|property| !property.tenant}
+            elsif session[:filter_properties] == "Most Expensive"
+                @properties = Property.order_by_expensive.select {|property| !property.tenant}
+            else
+                @properties = Property.all.select {|property| !property.tenant}
+            end
+           @property = Property.new
            @tenant = Tenant.find(session[:tenant_id]) if session[:tenant_id]
            @landlord = Landlord.find(session[:landlord_id]) if session[:landlord_id]
         else
            flash[:error] = "Please log in or sign up to view available properties!"
            redirect_to root_path
         end
+    end
+
+    def filter_properties
+        session[:filter_properties] = params[:property][:filter] if params[:property][:filter]
+        redirect_to properties_path
     end
 
     def show
@@ -73,31 +116,7 @@ class PropertiesController < ApplicationController
  
     end
 
-    def create
-        if landlord_logged_in?
-           @landlord = Landlord.find_by_id(params[:landlord_id])
-            if landlord_authorized?(@landlord)
-              @property = @landlord.properties.build(property_params)
-              if @property.save
-                  redirect_to landlord_property_show_path(@landlord, @property)
-              else
-                  redirect_to new_landlord_property_path(@landlord)
-              end
-           else
-              flash[:error] = "Not authorized to access this profile!"
-              redirect_to landlord_path(@landlord)
-           end
-        else
-            flash[:error] = "Not authorized to create this property!"
-            if tenant_logged_in?
-                tenant = Tenant.find_by_id(session[:tenant_id])
-                redirect_to tenant_path(tenant)
-            else
-                  redirect_to login_path
-            end
-        end
-
-    end
+    
 
     def update
         if landlord_logged_in?
@@ -191,6 +210,8 @@ class PropertiesController < ApplicationController
         end
     end
 
+  
+
     def destroy
         if landlord_logged_in?
            @landlord = Landlord.find(params[:landlord_id])
@@ -218,7 +239,6 @@ class PropertiesController < ApplicationController
             end
         end
     end
-
 
     private
     def property_params
