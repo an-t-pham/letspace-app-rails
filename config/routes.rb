@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   get  '/signup' => 'users#new'
   post '/logout' => 'sessions#destroy'
   
+
+  get '/auth/github/callback', to: 'sessions#omniauth'
+
   resources :users
 
   resources :tenants, only: [:show, :edit] do

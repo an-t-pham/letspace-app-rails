@@ -5,6 +5,7 @@
   <p>Email: <%= @user.email %></p>
   <p>Bio: <%= @user.bio %></p>
   
-  <p><%= link_to "Edit Account", edit_user_path(@user) %></p>
+  <p><%= link_to "Edit Account", edit_landlord_path(@user.landlord) if @user.landlord %></p>
+  <p><%= link_to "Edit Account", edit_tenant_path(@user.tenant) if @user.tenant %></p>
   <p><%= link_to "Delete Account", user_path(@user), method: :delete %></p>
   <%= link_to "Log Out", logout_path, method: "post" %>

@@ -3,15 +3,23 @@
 <p>Price: £<%= @property.price %>pcm<p>
 <p>Description:<%= @property.description %><p>
 
+<% if @reviews %>
+   <p>Reviews:</p>
+  <ol>
+    <% @reviews.each do |review| %>
+      <li><ul>
+            <li>Stars: <%= review.rating %>/5</li>
+            <li>Title: <%= review.title %></li>
+            <li>Content: <%= review.content %></li>
+            <li>Reviewed by: <%= review.tenant.user.name %></li>
+      </li></ul><br>
+    <% end %>
+  </ol>
+<% end %>
+
 <% if !@review %>
    <p><%= link_to "Leave a Review", new_tenant_property_review_path(@tenant, @property)%></p>
 <% else %>
-   <p>Your Review:</p>
-   <ul>
-      <li>Stars: <%= @review.rating %>/5</li>
-      <li>Title: <%= @review.title %></li>
-      <li>Content: <%= @review.content %></li>
-   </ul>
    <p><%= link_to "Edit Review", edit_tenant_property_review_path(@tenant, @property, @review)%></p>
    <%= link_to "Delete Review", tenant_property_review_path(@tenant, @property, @review), method: :delete%></p>
 <% end %>

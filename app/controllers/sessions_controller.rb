@@ -4,9 +4,13 @@ class SessionsController < ApplicationController
     end
 
     def new
+      if !logged_in?
         @user = User.new
+      else
+        landlord_or_tenant_path
       end
-    
+    end
+
       def create
         @user = User.find_by(email: params[:user][:email])
         if @user && @user.authenticate(params[:user][:password])
@@ -25,11 +29,17 @@ class SessionsController < ApplicationController
           redirect_to login_path
         end
       end
+
+      # def omniauth
+      #    byebug
+      # end
     
       def destroy
-        session.delete("landlord_id") if session[:landlord_id]
-        session.delete("tenant_id") if session[:tenant_id]
-        session.delete("user_id") if session[:user_id]
+        # byebug
+        reset_session
+        # session.delete("landlord_id") if session[:landlord_id]
+        # session.delete("tenant_id") if session[:tenant_id]
+        # session.delete("user_id") if session[:user_id]
         redirect_to root_path
       end
 
