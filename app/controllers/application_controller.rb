@@ -42,6 +42,10 @@ class ApplicationController < ActionController::Base
            tenant == current_tenant
         end
 
+        def authorized_to_review?(property)
+          property.previous_tenants.find{|tenant| tenant.id == current_tenant.id} || property.tenant == current_tenant
+        end
+
         def authorized_to_edit_review?(review)
           review.tenant == current_tenant
         end

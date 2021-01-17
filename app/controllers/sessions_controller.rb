@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
       if !logged_in?
         @user = User.new
       else
+        flash[:error] = "You're already logged in!"
         landlord_or_tenant_path
       end
     end
