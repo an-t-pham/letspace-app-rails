@@ -37,6 +37,8 @@ class ReviewsController < ApplicationController
            @tenant = Tenant.find(params[:tenant_id])
            @property = Property.find(params[:property_id])
            @review = Review.find(params[:id])
+          review_exist?(@review)
+          
           if authorized_to_edit_review?(@review)
             @@review_id = @review.id
             @url = tenant_previous_property_path(@tenant, @property)
@@ -77,5 +79,10 @@ class ReviewsController < ApplicationController
         def review_params
             params.require(:review).permit(:rating, :title, :content)
         end
+
+        def review_exist?(review)
+          landlord_or_tenant_path if !review
+        end    
+
     
 end

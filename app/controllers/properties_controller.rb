@@ -61,6 +61,7 @@ class PropertiesController < ApplicationController
     def show
         if logged_in?
           @property = Property.find(params[:id])
+          property_exist?(@property)
           @reviews = Review.all.select {|review| review.property_id == @property.id}
         else
            flash[:error] = "Please log in or sign up to view the property!"
@@ -71,6 +72,7 @@ class PropertiesController < ApplicationController
     def edit
            @landlord = Landlord.find_by_id(params[:landlord_id])
            @property = Property.find_by_id(params[:id])
+           property_exist?(@property)
               if authorized_to_edit?(@property)
                   @available_tenants = Tenant.all.select {|tenant| !tenant.property} 
                   @@tenant_id = @property.tenant_id 
@@ -89,6 +91,7 @@ class PropertiesController < ApplicationController
     def update
           @landlord = Landlord.find_by_id(params[:landlord_id])
           @property = Property.find_by_id(params[:id])
+          property_exist?(@property)
             if authorized_to_edit?(@property)
               @previous_tenant = Tenant.find(@@tenant_id) if @@tenant_id
               @property.update(property_params)
@@ -143,6 +146,7 @@ class PropertiesController < ApplicationController
     def destroy
            @landlord = Landlord.find_by_id(params[:landlord_id])
            @property = Property.find_by_id(params[:id])
+           property_exist?(@property)
            if landlord_authorized?(@landlord) && authorized_to_edit?(@property)
               if @property.tenant
                   @property.tenant_id = nil
@@ -160,5 +164,9 @@ class PropertiesController < ApplicationController
     def property_params
         params.require(:property).permit(:address, :price, :description, :image_url, :tenant_id)
     end
+
+    def property_exist?(property)
+        landlord_or_tenant_path if !property
+    end   
     
 end
