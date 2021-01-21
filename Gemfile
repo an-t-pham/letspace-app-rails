@@ -33,8 +33,8 @@ gem 'bcrypt', '~> 3.1.7'
 # omniauth gems
 
 gem 'omniauth'
+gem 'omniauth-oauth2', '~> 1.3.1'
 gem 'omniauth-google-oauth2'
-gem 'omniauth-github'
 gem 'dotenv-rails'
 
 group :development, :test do

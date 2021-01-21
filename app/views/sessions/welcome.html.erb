@@ -5,7 +5,7 @@
  
     <h1 style="color: darkcyan;">Welcome to LetSpace!</h1>
       <h3>Let's find the perfect home together...</h3>
-        <p class="pt-2" style="font-size:20px">
+        <p style="font-size:20px">
          
           <div class="btn btn-outline-dark">
           <%= link_to "Log In", login_path, :class => "text-decoration-none", :style=>"color: white"%>
@@ -14,9 +14,9 @@
           <div class="btn btn-outline-dark">
           <%= link_to "Sign Up", signup_path, :class => "text-decoration-none", :style=>"color: white" %>
           </div>
-          
-        <!-- <p><%= link_to "Sign Up with Google", "/auth/google_oauth2" %></p> -->
-        <!-- <p><%= link_to "Sign Up with Github", "/auth/github" %></p> -->
+        
+          <p><%= link_to "Sign Up with Google", "/auth/google_oauth2", :class => "btn btn-outline-dark", :style=>"color: white" %></p> 
+        
         
           </div>
           </div>
