@@ -1,12 +1,20 @@
-<h1> <%= @property.address %> </h1>
-<p><%= image_tag  @property.image_url,  maxHeight: '50%', maxWidth: '50%' %></p>
-<p>Price: £<%= @property.price %>pcm</p>
-<p>Description:<%= @property.description %></p>
+<nav style="background-color: darkcyan;">
+            <ul class="nav justify-content-end p-2">
+              <li class='pt-3' style='color: white; font-size: 20px; margin-right: 750px;'><h2><%= @property.address %></h2></li>
+              <li class='nav-link'><%= link_to "Edit Property", edit_landlord_property_path(@landlord, @property), class: 'nav-link' %></li>
+              <li class='nav-link'><%= link_to "Delete Property", landlord_property_path(@landlord, @property), method: :delete, class: 'nav-link' %></li>
+            </ul>
+        
+</nav>
+<div class='pl-3'>
+<p><%= image_tag  @property.image_url,  maxHeight: '80%%', maxWidth: '80%', :class => 'mt-3'  %></p>
+<p><b>Price:</b> £<%= @property.price %>pcm</p>
+<p><b>Description:</b> <%= @property.description %></p>
 <% if @property.tenant %>
-   <p>Current Tenant: <%= @property.tenant.user.name %> - Contact info: <%= @property.tenant.user.email %></p>
+   <p><b>Current Tenant:</b> <%= @property.tenant.user.name %> - Contact info: <%= @property.tenant.user.email %></p>
 <% end %>
 <% if !@property.previous_tenants.empty? %>
-   <p>Previous Tenants: </p>
+   <p><b>Previous Tenants:</b></p>
    <ul>
      <% @property.previous_tenants.each do |tenant| %>
       <li><%= tenant.user.name %> - Contact info: <%= tenant.user.email %></li>
@@ -14,7 +22,7 @@
    </ul>
 <% end %>
 <% if !@reviews.empty? %>
-  <p>Reviews:</p>
+  <p><b>Reviews:</b></p>
   <ol>
     <% @reviews.each do |review| %>
       <li><ul>
@@ -27,6 +35,6 @@
   </ol>
 <% end %>
 
-<p><%= link_to "Edit Property", edit_landlord_property_path(@landlord, @property) %></p>
-<p><%= link_to "Delete Property", landlord_property_path(@landlord, @property), method: :delete %></p>
-<p><%= link_to 'Back', landlord_properties_show_path(@landlord)%></p>
+<p><%= link_to '<<', landlord_properties_show_path(@landlord), :class => 'back' %></p>
+
+</div>

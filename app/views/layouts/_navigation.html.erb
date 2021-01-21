@@ -1,0 +1,15 @@
+<nav style="background-color: darkcyan;">
+            <ul class="nav justify-content-end p-2">
+            <li class='nav-link' ><%= link_to "View All Available Properties", properties_path, class: 'nav-link', :style=>'color: white;' %></li>
+            <% if @user.landlord %>
+              <li class='nav-link'><%= link_to "Edit Account", edit_landlord_path(@user.landlord), class: 'nav-link', :style=>'color: white' %></li>
+            <% end %>
+            <% if @user.tenant %>
+              <li class='nav-link'><%= link_to "Edit Account", edit_tenant_path(@user.tenant), class: 'nav-link', :style=>'color: white' %></li>
+            <% end %>
+            <li class='nav-link'> <%= link_to "Delete Account", user_path(@user), method: :delete, class: 'nav-link', :style=>'color: white;' %></li>
+            <li class='nav-link'> <%= link_to "Log Out", logout_path, method: "post", class: 'nav-link', :style=>'color: white;' %></li>
+                
+            </ul>
+        
+</nav>

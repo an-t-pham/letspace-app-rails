@@ -1,12 +1,34 @@
-<h1>Please Log In!</h1>
-<%= form_for :user do |f| %>
-    <%= f.label :email %><br>
-    <%= f.text_field :email %><br>
-    <%= f.label :password %><br>
-    <%= f.password_field :password %><br>
-
-    <br />
-
-    <%= f.submit "Sign In" %>
-  <% end %>
-<p><%= link_to 'Back', root_path %></p>
+<div class="vh-100 img-container">
+<div class="h-100 row align-items-center">
+<div class="col card h-30 pt-2">
+<div class="card-body">
+<div class="container">
+  <div class="row">
+    <div class="col">
+     
+    </div>
+    <div class="col-4">
+    <h1>Please Log In!</h1>
+    <%= form_for :user do |f| %>
+        <%= f.label :email %><br>
+        <%= f.text_field :email, :class => "border border-pink" %><br>
+        <%= f.label :password %><br>
+        <%= f.password_field :password, :class => "border border-pink"%><br>
+  
+        <br />
+  
+        <%= f.submit "Log In", :class => "text-decoration-none btn btn-outline-dark" %>
+      <% end %><br>
+  
+    
+    <p><%= link_to '<<', root_path, :class => "back" %></p>
+    </div>
+    <div class="col">
+     
+    </div>
+  </div>
+  
+  </div>
+  </div>
+  </div>
+</div>

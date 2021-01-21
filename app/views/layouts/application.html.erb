@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>LetSpaceApp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LetSpace App%></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "An app to build a bridge between landlords and tenants" %>">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,14 +12,26 @@
   </head>
 
   <body>
-  <div class="wrapper">
-  <% if flash[:error] %>
-  <h3 style="color:lightpink; text-align:center; padding-top: 20px; background:grey; padding-bottom:20px; margin-bottom: 0;"><%= flash[:error]%></h3>
-  <% end %>
+  <header>
+     
+  </header>
 
-  <% if flash[:message] %>
-  <h3 style="color:lightblue; text-align:center; padding-top: 20px; background:grey; padding-bottom:20px; margin-bottom: 0;"><%= flash[:message]%></h3>
-  <% end %>
-    <%= yield %>
+  <div class="wrapper">
+     <% if flash[:error] %>
+       <h3 style="color:lightpink; text-align:center; padding-top: 20px; background:grey; padding-bottom:20px; margin-bottom: 0;"><%= flash[:error]%></h3>
+     <% end %>
+
+     <% if flash[:message] %>
+       <h3 style="color:lightblue; text-align:center; padding-top: 20px; background:grey; padding-bottom:20px; margin-bottom: 0;"><%= flash[:message]%></h3>
+     <% end %>
+  </div>
+  
+  <main role="main">
+  <%= content_for?(:content) ? yield(:content) : yield %>
+  </main>
+
+  
+    </div>
   </body>
+
 </html>

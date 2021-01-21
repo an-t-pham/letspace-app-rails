@@ -1,18 +1,37 @@
+<div class="vh-100 img-container" style="padding-top: 120px;">
+
+<div class="card text-lightpink bg-lightpink mb-3 m-auto" style="max-width: 25rem;">
 <%= render partial: 'layouts/errors', locals: {obj: @property} %>
 
+<% if !@property.id %>
+  <div class="card-body"><h1>Add Property</h1></div>
+<% else %>
+  <div class="card-body"><h1>Edit Property</h1></div>
+<% end %>
+  <div class="card-body">
 <%= form_for @property, url: @url  do |f| %>
     <%= f.label :address %><br>
-    <%= f.text_field :address %><br>
+    <%= f.text_field :address, :class => "border border-pink" %><br>
     <%= f.label :price %><br>
-    <%= f.text_field :price %><br>
+    <%= f.text_field :price, :class => "border border-pink" %><br>
     <%= f.label :description %><br>
-    <%= f.text_area :description %><br>
+    <%= f.text_area :description, :class => "border border-pink" %><br>
     <%= f.label :image_url %><br>
-    <%= f.text_field :image_url %><br>
+    <%= f.text_field :image_url, :class => "border border-pink" %><br>
     <%= f.label :tenant, "Current Tenant" %><br>
-    <%= f.collection_select  :tenant_id, @available_tenants, :id, :name, :include_blank => "No Tenant" %><br>
+    <%= f.collection_select  :tenant_id, @available_tenants, :id, :name, {:include_blank => "No Tenant"}, {:class => "border border-pink"} %><br>
     
     <br />
   
-    <%= f.submit %>
+    <%= f.submit :class => "text-decoration-none btn btn-outline-dark"  %>
   <% end %>
+  <br>
+    
+  <% if !@property.id %>
+     <p><%= link_to '<<', landlord_properties_show_path(@landlord), :class => 'back' %></p>
+  <% else %>
+     <p><%= link_to '<<', landlord_property_show_path(@landlord, @property), :class => 'back' %></p>
+  <% end %>
+</div>
+</div>
+</div>

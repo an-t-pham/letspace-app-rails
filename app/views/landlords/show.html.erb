@@ -1,5 +1,4 @@
 <%= render partial: 'users/show' %>
-
-<p><%= link_to "View Your Properties", landlord_properties_path(@landlord) %></a>
-<p><%= link_to "View All Available Properties", properties_path %></a>
-
+<div class="pl-3">
+<p class="btn btn-outline-dark"><%= link_to "Manage Your Properties", landlord_properties_path(@landlord), :class => "text-decoration-none", :style=>"color: white" %></a>
+</div>

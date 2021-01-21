@@ -1,14 +1,27 @@
+<div class="vh-100 img-container" style="padding-top: 120px;">
+
+<div class="card text-lightpink bg-lightpink mb-3 m-auto" style="max-width: 25rem;">
 <%= render partial: 'layouts/errors', locals: {obj: @review} %>
 
+<% if !@review.id %>
+  <div class="card-body"><h2>Please leave a review</h2></div>
+<% else %>
+  <div class="card-body"><h2>Edit Your Review</h2></div>
+<% end %>
+<div class="card-body">
 <%= form_for @review, url: @url  do |f| %>
     <%= f.label :rating, "How many stars would you rate this property? (1-5)" %><br>
-    <%= f.number_field :rating, min:1, max:5 %><br>
+    <%= f.number_field :rating, min:1, max:5, :class => "border border-pink" %><br>
     <%= f.label :title %><br>
-    <%= f.text_field :title %><br>
+    <%= f.text_field :title, :class => "border border-pink" %><br>
     <%= f.label :content %><br>
-    <%= f.text_area :content %><br>
+    <%= f.text_area :content, :class => "border border-pink" %><br>
     <br />
     <%= f.hidden_field :property_id %><br>
 
-    <%= f.submit %>
+    <%= f.submit :class => "text-decoration-none btn btn-outline-dark" %>
   <% end %>
+  <p><%= link_to '<<', tenant_property_path(@tenant, @property), :class => 'back' %></p>   
+  </div>
+  </div>
+  </div>

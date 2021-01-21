@@ -1,0 +1,102 @@
+@import "~bootstrap/scss/bootstrap.scss";
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400,700');
+
+$pink: lightpink;
+$cyan:  lightcyan;
+
+.nav {
+       
+        background: darkcyan;;
+}
+body {
+        background: $cyan;
+        color: $pink;
+        font-family: 'Merriweather', sans-serif;
+}
+h1,
+h2 {
+        font-weight: bold;
+}
+p {
+        font-size: 16px;
+        color: $pink;
+}
+
+.jumbotron {
+        background: #0048CD;
+        color: $white;
+        text-align: center;
+        p {
+                color: $white;
+                font-size: 26px;
+        }
+}
+.link {
+        color: $pink;
+}
+
+img,
+video,
+audio {
+        margin-top: 20px;
+        max-width: 80%;
+}
+caption {
+
+        float: left;
+        clear: both;
+
+}
+
+.img-container {
+        background-image: url("../images/img_01_kitchen.jpg");   
+        background-size: cover;
+        
+}
+
+.welcome-container {
+        padding-top: 400px;
+        padding-bottom: 400px;
+        text-align: center;
+        position: relative;
+        
+}
+
+.btn-outline-dark {
+        background-color: $pink;
+        border: none;
+        color: white;
+}
+.btn-outline-dark:hover {
+        background-color: darkcyan;
+        cursor: pointer;
+      }
+
+.card {
+       background-color: $cyan;
+       border: none;
+}
+
+.nav-link {
+        color: white;
+}
+
+.nav-link:hover {
+        color: $pink;
+        cursor: pointer;
+    }
+
+.back {
+        color: $pink;
+       
+}
+
+.back:hover {
+        color: darkcyan;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+.text-pink {
+        color: darkcyan;
+}

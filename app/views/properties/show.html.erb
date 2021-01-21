@@ -1,11 +1,17 @@
-<h1> <%= @property.address %> </h1>
-<p><%= image_tag  @property.image_url,  maxHeight: '50%', maxWidth: '50%' %></p>
-<p>Price: £<%= @property.price %>pcm<p>
-<p>Description:<%= @property.description %><p>
-<p>If interested, please contact <%= @property.landlord.user.name %> at <%= @property.landlord.user.email %>!</a></p>
+<nav style="background-color: darkcyan;">
+            <ul class="nav p-3">
+              <li class='pt-3' style='color: white; font-size: 20px; '><h2><%= @property.address %></h2></li>
+            </ul>
+        
+</nav>
+<div class='pl-3'>
+<p><%= image_tag  @property.image_url,  maxHeight: '80%', maxWidth: '80%' %></p>
+<p><b>Price:</b> £<%= @property.price %>pcm<p>
+<p><b>Description:</b> <%= @property.description %><p>
+<p>If interested, please contact <b><%= @property.landlord.user.name %> at <%= @property.landlord.user.email %>!</b></p>
 
 <% if !@reviews.empty? %>
-  <p>Reviews:</p>
+  <p><b>Reviews:</b></p>
   <ol>
     <% @reviews.each do |review| %>
       <li><ul>
@@ -17,4 +23,5 @@
     <% end %>
   </ol>
 <% end %>
-<p><%= link_to 'Back', properties_path %></p>
+<p><%= link_to '<<', properties_path, :class => 'back' %></p>
+</div>

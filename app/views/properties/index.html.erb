@@ -1,12 +1,28 @@
-<h1>All Available Properties</h1>
+<nav style="background-color: darkcyan;">
+            <div class="nav justify-content-between p-2">
+               <h2 class='pt-3 pl-3' style='color: white; font-size: 20px;'>All Available Properties</h2>
+            </div>
+        
+</nav>
+  <div class='pt-3 pl-3'> 
+   <%= form_for @property do |f| %>
+     <%= f.select :filter, ['Highest Rating', 'Lowest Rating', 'Cheapest', 'Most Expensive'], {:prompt => 'Pick a filter option'}, {:class => "border border-pink text-pink"} %>
+     <%= f.submit 'Submit', :class => "text-decoration-none btn btn-outline-dark ml-2 p-1"  %>
+   <% end %>
+   <div class='pt-3'>
+   <% @properties.each do |property| %>
+     <h4><%= link_to "#{property.address}  - £#{property.price}pcm", property_path(property), :class => "back" %></h4>
+     <p><%= image_tag  property.image_url,  height: '200', width: '200' %></p>
+   <% end %>
 
-<%= form_for @property do |f| %>
-  <%= f.select :filter, ['Highest Rating', 'Lowest Rating', 'Cheapest', 'Most Expensive'], prompt: 'Pick a filter option' %>
-  <%= f.submit 'Submit' %>
-<% end %>
-<% @properties.each do |property| %>
-  <h4><%= link_to "#{property.address}  - £#{property.price}pcm", property_path(property) %></h4>
-  <p><%= image_tag  property.image_url,  height: '200', width: '200' %></p>
-<% end %>
-<p><%= link_to 'Back', tenant_path(@tenant) if @tenant%></p>
-<p><%= link_to 'Back', landlord_path(@landlord) if @landlord%></p>
+   <% if @tenant %>
+   <p><%= link_to '<<', tenant_path(@tenant), :class => "back" %></p>
+   <% end %>
+
+
+   <% if @landlord %>
+   <p><%= link_to '<<', landlord_path(@landlord), :class => "back"%></p>
+   <% end %>
+ 
+   </div>
+   </div>

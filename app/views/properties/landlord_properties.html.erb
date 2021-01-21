@@ -1,8 +1,17 @@
-<h1>All of Your Properties</h1>
+<nav style="background-color: darkcyan;">
+            <ul class="nav justify-content-between p-2">
+               <li class='pt-3 pl-3' style='color: white; font-size: 20px;'>All of Your Properties</li>
+              <li class='nav-link'><%= link_to "Add New Property", new_landlord_property_path(@landlord), class: 'nav-link' %></li>
+            </ul>
+        
+</nav>
+
+<div class= "p-3">
 <% @properties.each do |property| %>
-  <h4><%= link_to "#{property.address}  - £#{property.price}pcm", landlord_property_path(@landlord, property) %></h4>
+  <h4><%= link_to "#{property.address}  - £#{property.price}pcm", landlord_property_path(@landlord, property), :class => "back" %></h4>
   <p><%= image_tag  property.image_url,  height: '200', width: '200' %></p>
 <% end %>
 
-<h3><%= link_to "Add New Property", new_landlord_property_path(@landlord) %></h3>
-<p><%= link_to 'Back', landlord_path(@landlord)%></p>
+<h3></h3>
+<p><%= link_to '<<', landlord_path(@landlord), :class => "back" %></p>
+</div>

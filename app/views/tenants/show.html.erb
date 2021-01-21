@@ -1,12 +1,15 @@
 <%= render partial: 'users/show' %>
+<% if @tenant.property %>
+<div class='pl-3'>
+<p><b>Current Address:</b> <%= link_to @tenant.property.address, tenant_previous_property_path(@tenant, @tenant.property), :class => 'back' %></p>
+<% end %>
 
-<p>Current Address: <%= link_to @tenant.property.address, tenant_previous_property_path(@tenant, @tenant.property) if @tenant.property %></p>
 <% if !@tenant.previous_properties.empty? %>
-<p>Previous Addresses:</p>
+<p><b>Previous Addresses:</b></p>
   <ul>
     <% @tenant.previous_properties.each do |property| %>
-        <li><%= link_to property.address, tenant_previous_property_path(@tenant, property) %></li>
+        <li><%= link_to property.address, tenant_previous_property_path(@tenant, property), :class => 'back' %></li>
     <% end %>
   </ul>
 <% end %>
-<p><%= link_to "View All Available Properties", properties_path %></p>
+</div>

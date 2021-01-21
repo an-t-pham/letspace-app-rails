@@ -1,11 +1,25 @@
+<nav>
+            <ul class="nav justify-content-end p-2">
+            <li class='nav-link' ><%= link_to "View All Available Properties", properties_path, class: 'nav-link'%></li>
+            <% if @user.landlord %>
+              <li class='nav-link'><%= link_to "Edit Account", edit_landlord_path(@user.landlord), class: 'nav-link' %></li>
+            <% end %>
+            <% if @user.tenant %>
+              <li class='nav-link'><%= link_to "Edit Account", edit_tenant_path(@user.tenant), class: 'nav-link'  %></li>
+            <% end %>
+            <li class='nav-link'> <%= link_to "Delete Account", user_path(@user), method: :delete, class: 'nav-link' %></li>
+            <li class='nav-link'> <%= link_to "Log Out", logout_path, method: "post", class: 'nav-link'%></li>
+                
+            </ul>
+        
+</nav>
+<div class="p-3">
 <h1>Hello, <%= @user.first_name %>!</h1>
 <p><%= image_tag  @user.image_url,  height:'250', width:'200' if @user.image_url %></p>
 
-  <p>Full Name: <%= @user.name %></p>
-  <p>Email: <%= @user.email %></p>
-  <p>Bio: <%= @user.bio %></p>
+  <p><b>Full Name:</b> <%= @user.name %></p>  
+  <p><b>Email:</b> <%= @user.email %></p>
+  <p><b>Bio:</b> <%= @user.bio %></p>
   
-  <p><%= link_to "Edit Account", edit_landlord_path(@user.landlord) if @user.landlord %></p>
-  <p><%= link_to "Edit Account", edit_tenant_path(@user.tenant) if @user.tenant %></p>
-  <p><%= link_to "Delete Account", user_path(@user), method: :delete %></p>
-  <%= link_to "Log Out", logout_path, method: "post" %>
+
+</div>

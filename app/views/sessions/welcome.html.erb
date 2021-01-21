@@ -1,13 +1,24 @@
-<h1>Welcome to LetSpace!</h1>
-<h2>Let's find a perfect home together...</h2>
-<h3>
-<%= link_to "Log In", login_path %>
-or
-<%= link_to "Sign Up", signup_path %>
-or 
-<%= link_to "Sign Up with Google", "/auth/google_oauth2" %>
-or 
-<%= link_to "Sign Up with Github", "/auth/github" %>
-</h3>
-
-
+<div class="vh-100 img-container">
+  <div class="h-100 row align-items-center"> 
+  <div class="col card h-25 pt-2">
+  <div class="card-body text-center">
+ 
+    <h1 style="color: darkcyan;">Welcome to LetSpace!</h1>
+      <h3>Let's find the perfect home together...</h3>
+        <p class="pt-2" style="font-size:20px">
+         
+          <div class="btn btn-outline-dark">
+          <%= link_to "Log In", login_path, :class => "text-decoration-none", :style=>"color: white"%>
+          </div>
+          or
+          <div class="btn btn-outline-dark">
+          <%= link_to "Sign Up", signup_path, :class => "text-decoration-none", :style=>"color: white" %>
+          </div>
+          
+        <!-- <p><%= link_to "Sign Up with Google", "/auth/google_oauth2" %></p> -->
+        <!-- <p><%= link_to "Sign Up with Github", "/auth/github" %></p> -->
+        
+          </div>
+          </div>
+  </div>
+</div>

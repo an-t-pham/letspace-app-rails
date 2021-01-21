@@ -1,25 +1,39 @@
+<div class="vh-100 img-container" style="padding-top: 120px;">
+
+<div class="card text-lightpink bg-lightpink mb-3 m-auto" style="max-width: 25rem;">
 <%= render partial: 'layouts/errors', locals: {obj: @user} %>
+<% if !@edit %>
+<div class="card-body"><h1>Please Sign Up!</h1></div>
+<% else %>
+<div class="card-body"><h1>Edit Your Account</h1></div>
+<% end %>
+<div class="card-body">
 
 <%= form_for @user  do |f| %>
-  <%= f.label :first_name %><br>
-  <%= f.text_field :first_name %><br>
+  <%= f.label :first_name%><br>
+  <%= f.text_field :first_name, :class => "border border-pink" %><br>
   <%= f.label :last_name %><br>
-  <%= f.text_field :last_name %><br>
+  <%= f.text_field :last_name, :class => "border border-pink" %><br>
   <%= f.label :email %><br>
-  <%= f.text_field :email %><br>
+  <%= f.text_field :email, :class => "border border-pink" %><br>
   <%= f.label :password %><br>
-  <%= f.password_field :password %><br>
+  <%= f.password_field :password, :class => "border border-pink" %><br>
   <%= f.label :bio %><br>
-  <%= f.text_field :bio %><br>
+  <%= f.text_area :bio, :class => "border border-pink" %><br>
   <%= f.label :image_url %><br>
-  <%= f.text_field :image_url %><br>
+  <%= f.text_field :image_url, :class => "border border-pink" %><br>
   <% if !@edit %>
     <%= f.label :landlord_checkbox, "Check box if you are a landlord" %>
-    <%= f.hidden_field :landlord_checkbox, value: "0" %>
+    <%= f.hidden_field :landlord_checkbox, :value => "0" %>
     <%= f.check_box :landlord_checkbox %><br>
   <% end %>
-  
-  <br />
+  <br>
 
-  <%= f.submit %>
-<% end %>
+  <%= f.submit "Create Account", :class => "text-decoration-none btn btn-outline-dark" %>
+<% end %><br>
+<p><%= link_to '<<', :back, :class => "back" %></p>
+</div>
+</div>
+</div>
+
+
