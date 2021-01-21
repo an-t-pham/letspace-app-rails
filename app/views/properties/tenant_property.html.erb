@@ -1,20 +1,21 @@
 <nav style="background-color: darkcyan;">
-    <% if !@review %>
-            <ul class="nav justify-content-between p-2">
-              <li class='pt-3' style='color: white; font-size: 20px;'><h2><%= @property.address %></h2></li>
+          <ul class="nav justify-content-end p-2">
+               <% if !@review %>
                 <li class='nav-link'><%= link_to "Leave a Review", new_tenant_property_review_path(@tenant, @property), class: 'nav-link' %></li>
                 </ul>
               <% else %>
-              <ul class="nav justify-content-end p-2">
-              <li class='pt-3' style='color: white; font-size: 20px; margin-right: 750px;'><h2><%= @property.address %></h2></li>
+              
                 <li class='nav-link'><%= link_to "Edit Review", edit_tenant_property_review_path(@tenant, @property, @review), class: 'nav-link' %></li>
                 <li class='nav-link'><%= link_to "Delete Review", tenant_property_review_path(@tenant, @property, @review), method: :delete, class: 'nav-link' %></li>
+                </ul>
               <% end %>
-            </ul>
+           
         
 </nav>
 
-<div class='pl-3'>
+<div class='pl-3 mt-n5'>
+<h2><%= @property.address %></h2>
+<div class='pt-3'>
 <p><%= image_tag  @property.image_url,  maxHeight: '50%', maxWidth: '50%' %></p>
 <p><b>Price:</b> £<%= @property.price %>pcm<p>
 <p><b>Description:</b> <%= @property.description %><p>
@@ -34,4 +35,5 @@
 <% end %>
 
 <p><%= link_to "<<", tenant_path(@tenant), :class => 'back' %></p>
+</div>
 </div>

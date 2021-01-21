@@ -22,31 +22,10 @@ p {
         color: $pink;
 }
 
-.jumbotron {
-        background: #0048CD;
-        color: $white;
-        text-align: center;
-        p {
-                color: $white;
-                font-size: 26px;
-        }
-}
 .link {
         color: $pink;
 }
 
-img,
-video,
-audio {
-        margin-top: 20px;
-        max-width: 80%;
-}
-caption {
-
-        float: left;
-        clear: both;
-
-}
 
 .img-container {
         background-image: url("../images/img_01_kitchen.jpg");   
@@ -78,11 +57,11 @@ caption {
 }
 
 .nav-link {
-        color: white;
+       color: $pink;
 }
 
 .nav-link:hover {
-        color: $pink;
+        color: $cyan;
         cursor: pointer;
     }
 
