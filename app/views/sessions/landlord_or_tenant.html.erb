@@ -1,0 +1,27 @@
+<div class="vh-100 img-container">
+<div class="h-100 row align-items-center">
+<div class="col card h-30 pt-2">
+<div class="card-body">
+<div class="container">
+  <div class="row">
+    <div class="col">
+     
+    </div>
+    <div class="col-4">
+      <h2 style="color: darkcyan;">Are you a landlord?<h2>
+       <%= form_for @user, url: '/landlord_or_tenant'  do |f| %>
+       <div style="font-size:20px"> <%= f.radio_button :landlord_checkbox, "1" %>Yes<br />
+       <%= f.radio_button :landlord_checkbox, "0" %>No<br />
+       </div>
+       <%= f.submit 'Submit', :class => "text-decoration-none btn btn-outline-dark"%>
+       <% end %>
+       </div>
+       <div class="col">
+        
+       </div>
+     </div>
+     
+     </div>
+     </div>
+     </div>
+   </div>

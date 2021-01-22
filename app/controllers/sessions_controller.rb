@@ -31,17 +31,47 @@ class SessionsController < ApplicationController
         end
       end
 
-      # def omniauth
-      #    byebug
-      # end
-    
+      def omniauth
+         @user = User.find_by(email: auth[:info][:email])
+         
+         if @user
+          session[:user_id] = @user.id
+           if @user.landlord_checkbox
+              landlord = Landlord.find_by(user_id: @user.id)
+              session[:landlord_id] = landlord.id
+              redirect_to landlord_path(landlord)
+           else
+              tenant = Tenant.find_by(user_id: @user.id)
+              session[:tenant_id] = tenant.id
+              redirect_to tenant_path(tenant)
+            end
+         else
+            @user = User.create(email: auth[:info][:email]) do |user|
+              user.first_name = auth.info.first_name
+              user.last_name = auth.info.last_name
+              user.image_url = auth.info.image
+              user.landlord_checkbox = false
+              user.password = SecureRandom.hex
+            end
+            session[:user_id] = @user.id
+            render :landlord_or_tenant
+          end
+     end
+
+
       def destroy
-        # byebug
         reset_session
-        # session.delete("landlord_id") if session[:landlord_id]
-        # session.delete("tenant_id") if session[:tenant_id]
-        # session.delete("user_id") if session[:user_id]
         redirect_to root_path
       end
+
+      private
+
+      def auth
+        request.env['omniauth.auth']
+      end
+
+      def session_params
+        params.require(:controller).permit(:session)
+    end
 
 end

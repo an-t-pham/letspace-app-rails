@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   post '/logout' => 'sessions#destroy'
   
 
-  get '/auth/github/callback', to: 'sessions#omniauth'
+  get '/auth/google_oauth2/callback' => 'sessions#omniauth'
+
+  patch '/landlord_or_tenant' => 'users#landlord_tenant'
 
   resources :users
 

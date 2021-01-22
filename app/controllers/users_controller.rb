@@ -15,6 +15,7 @@ class UsersController < ApplicationController
                 session[:landlord_id] = landlord.id 
                 redirect_to landlord_path(landlord)
             else
+                byebug
                 tenant = Tenant.create(user_id: @user.id)
                 session[:tenant_id] = tenant.id 
                 redirect_to tenant_path(tenant)
@@ -50,6 +51,20 @@ class UsersController < ApplicationController
        
     end
 
+    def landlord_tenant
+        @user = User.find_by_id(session[:user_id])
+        @user.update(landlord_tenant_params)
+        if @user.landlord_checkbox
+            landlord = Landlord.create(user_id: @user.id)
+            session[:landlord_id] = landlord.id 
+            redirect_to landlord_path(landlord)
+        else
+            tenant = Tenant.create(user_id: @user.id)
+            session[:tenant_id] = tenant.id 
+            redirect_to tenant_path(tenant)
+        end
+    end
+
     def destroy
           if user_authorized?(@user)
              if @user.tenant && @user.tenant.property
@@ -76,7 +91,10 @@ class UsersController < ApplicationController
     def user_params
         params.require(:user).permit(:first_name, :last_name, :email, :password, :bio, :image_url, :landlord_checkbox)
     end
-
+   
+    def landlord_tenant_params
+        params.require(:user).permit(:landlord_checkbox)
+    end
     
 
     def find_user
