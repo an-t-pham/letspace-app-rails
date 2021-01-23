@@ -71,8 +71,8 @@ class UsersController < ApplicationController
                     @user.tenant.property.save
              end
              @user.destroy
-             flash[:message] = "Account deleted."
              reset_session
+             flash[:message] = "Account deleted."
              redirect_to root_path
           else
             @user = User.find_by_id(session[:user_id])
