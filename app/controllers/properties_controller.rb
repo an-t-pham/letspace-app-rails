@@ -23,6 +23,7 @@ class PropertiesController < ApplicationController
                   redirect_to landlord_property_show_path(@landlord, @property)
               else
                 @available_tenants = Tenant.all.select {|tenant| !tenant.property}
+                @url = landlord_properties_show_path
                 render :new
               end
            else

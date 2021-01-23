@@ -15,7 +15,6 @@ class UsersController < ApplicationController
                 session[:landlord_id] = landlord.id 
                 redirect_to landlord_path(landlord)
             else
-                byebug
                 tenant = Tenant.create(user_id: @user.id)
                 session[:tenant_id] = tenant.id 
                 redirect_to tenant_path(tenant)
