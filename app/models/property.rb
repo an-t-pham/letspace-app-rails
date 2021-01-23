@@ -15,4 +15,12 @@ class Property < ApplicationRecord
 
     def filter
     end
+
+    def average_rating
+        rating = []
+        self.reviews.each do |review|
+            rating << review.rating
+        end
+        average_rating = rating.sum / rating.size
+    end
 end

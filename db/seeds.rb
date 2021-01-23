@@ -30,9 +30,9 @@ homer1 = Tenant.create(user_id: homer.id)
 
 
 dulverton = Property.create(address: "123 Dulverton Court", price: 800, description: "located in central", image_url: "https://assets.themodernhouse.com/wp-content/uploads/2019/12/The-Coach-House-St-Donatts-Road-London-SE14-21-1-1600x1067.jpg", landlord_id: jane1.id, tenant_id: peter1.id)
-london = Property.create(address: "7 London Road", price: 1000, description: "big and clean house", image_url: "https://www.idesignarch.com/wp-content/uploads/Hyde-Park-Mews_1-1024x683.jpg", landlord_id: jane1.id, tenant_id: wendy1.id)
-camplin = Property.create(address: "43 Camplin Street", price: 500, description: "affordable house", image_url: "https://i.pinimg.com/originals/a3/4a/81/a34a81d706ca05ba8646d52de7167212.jpg", landlord_id: john1.id, tenant_id: hook1.id)
-kent = Property.create(address: "21 Old Kent Road", price: 600, description: "new house", image_url: "https://i.pinimg.com/originals/a3/4a/81/a34a81d706ca05ba8646d52de7167212.jpg", landlord_id: john1.id)
+london = Property.create(address: "7 London Road", price: 1000, description: "big and clean house", image_url: "https://www.idesignarch.com/wp-content/uploads/Hyde-Park-Mews_1-1024x683.jpg", landlord_id: jane1.id)
+camplin = Property.create(address: "43 Camplin Street", price: 500, description: "affordable house", image_url: "https://i.pinimg.com/originals/a3/4a/81/a34a81d706ca05ba8646d52de7167212.jpg", landlord_id: john1.id)
+kent = Property.create(address: "21 Old Kent Road", price: 600, description: "new house", image_url: "https://www.architectureartdesigns.com/wp-content/uploads/2015/10/1017.jpg", landlord_id: john1.id)
 
 
 
@@ -45,7 +45,7 @@ PreviousRecord.create(property_id: camplin.id, tenant_id: peter1.id)
 PreviousRecord.create(property_id: kent.id, tenant_id: peter1.id)
 
 Review.create(rating: 5, title: "The best review", content: "fantastic house & neighbours", property_id: camplin.id, tenant_id: peter1.id)
-Review.create(rating: 4, title: "A good review", content: "nice house", property_id: london.id, tenant_id: hook1.id)
+Review.create(rating: 3, title: "A good review", content: "nice house", property_id: london.id, tenant_id: hook1.id)
 Review.create(rating: 3, title: "An average review", content: "decent house with annoying neighbours", property_id: camplin.id, tenant_id: wendy1.id)
 Review.create(rating: 2, title: "A nasty review", content: "disgusting house", property_id: dulverton.id, tenant_id: wendy1.id)
 Review.create(rating: 1, title: "A bad review", content: "horrible house & neighbours", property_id: kent.id, tenant_id: peter1.id)

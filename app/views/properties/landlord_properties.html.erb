@@ -8,10 +8,18 @@
 
 <div class= "p-3">
 <% @properties.each do |property| %>
-  <h4><%= link_to "#{property.address}  - £#{property.price}pcm", landlord_property_path(@landlord, property), :class => "back" %></h4>
-  <p><%= image_tag  property.image_url,  height: '200', width: '200' %></p>
-<% end %>
+  <div class="card .h-100 mb-4" style="width: 18rem; background-color: lightseagreen;">
+  <p><%= image_tag  property.image_url,  height: '200', width: '200', :class => "card-img-top" %></p>
+     <div class="card-body">
+     <p class="card-title font-weight-bold"><%= property.address%>- £<%=property.price%>pcm</p>
+     <p class="card-text">Rating: <%= property.average_rating %>/5</p>
+     <p><%= link_to "Click here for more info", landlord_property_path(@landlord, property), :class => "back" %></p>
+     
+     </div>
+     </div>
+   <% end %>
 
 <h3></h3>
 <p><%= link_to '<<', landlord_path(@landlord), :class => "back" %></p>
 </div>
+
