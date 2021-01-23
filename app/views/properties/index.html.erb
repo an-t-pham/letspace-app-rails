@@ -18,7 +18,9 @@
      <p><%= image_tag  property.image_url,  height: '200', width: '200', :class => "card-img-top" %></p>
      <div class="card-body">
      <p class="card-title font-weight-bold"><%= property.address%>- £<%=property.price%>pcm</p>
-     <p class="card-text">Rating: <%= property.average_rating %>/5</p>
+      <%if property.average_rating %>
+        <p class="card-text">Rating: <%= property.average_rating %>/5</p>
+      <% end %>
      <p><%= link_to "Click here for more info", property_path(property), :class => "back" %></p>
      
      </div>

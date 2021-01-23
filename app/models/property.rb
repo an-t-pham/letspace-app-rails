@@ -21,6 +21,11 @@ class Property < ApplicationRecord
         self.reviews.each do |review|
             rating << review.rating
         end
-        average_rating = rating.sum / rating.size
+        if rating != []
+           average_rating = rating.sum / rating.size
+        else 
+            average_rating = nil 
+        end
+        average_rating
     end
 end
