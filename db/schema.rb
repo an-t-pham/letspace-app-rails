@@ -10,16 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_17_140616) do
+ActiveRecord::Schema.define(version: 2020_12_19_103134) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "landlords", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_landlords_on_user_id"
   end
 
   create_table "previous_records", force: :cascade do |t|
-    t.integer "tenant_id", null: false
-    t.integer "property_id", null: false
+    t.bigint "tenant_id", null: false
+    t.bigint "property_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["property_id"], name: "index_previous_records_on_property_id"
@@ -31,8 +34,8 @@ ActiveRecord::Schema.define(version: 2020_12_17_140616) do
     t.integer "price"
     t.string "description"
     t.string "image_url"
-    t.integer "landlord_id", null: false
-    t.integer "tenant_id"
+    t.bigint "landlord_id", null: false
+    t.bigint "tenant_id"
     t.index ["landlord_id"], name: "index_properties_on_landlord_id"
     t.index ["tenant_id"], name: "index_properties_on_tenant_id"
   end
@@ -41,8 +44,8 @@ ActiveRecord::Schema.define(version: 2020_12_17_140616) do
     t.integer "rating"
     t.string "title"
     t.string "content"
-    t.integer "tenant_id", null: false
-    t.integer "property_id", null: false
+    t.bigint "tenant_id", null: false
+    t.bigint "property_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["property_id"], name: "index_reviews_on_property_id"
@@ -50,7 +53,7 @@ ActiveRecord::Schema.define(version: 2020_12_17_140616) do
   end
 
   create_table "tenants", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_tenants_on_user_id"
   end
 
