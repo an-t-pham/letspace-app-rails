@@ -16,7 +16,7 @@ An web application for landlords to manage of their properties directly and tena
  Built With
 
 - Rails, '~> 6.0.3', '>= 6.0.3.4'
-- sqlite3 for ActiveRecord
+- PostGres for ActiveRecord
 - bcrypt
 - bootsnap
 - webpacker
