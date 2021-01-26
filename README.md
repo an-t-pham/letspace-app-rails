@@ -2,7 +2,7 @@
 
  Summary
 
-An web application for landlords to manage of their properties directly and tenants will be able to view & review on properties without going through letting agents. This is an updated version from my LetSpace Sinatra project. 
+An web application for landlords to manage of their properties and tenants will be able to view & review on properties that they are living or lived in the past. This is an updated version from my LetSpace Sinatra project. 
 
 
  Installing
