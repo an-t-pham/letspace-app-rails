@@ -12,6 +12,8 @@ An web application for landlords to manage of their properties directly and tena
 3. Run 'rails server' in your terminal
 4. Open your chosen browser and navigate to 'localhost:3000/'
 
+ This project is also hosted in Heroku at https://letspace-app.herokuapp.com/ 
+
 
  Built With
 
