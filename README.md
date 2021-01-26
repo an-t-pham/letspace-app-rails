@@ -2,7 +2,7 @@
 
  Summary
 
-An web application for landlords to manage of their properties and tenants will be able to view & review on properties that they are living or lived in the past. This is an updated version from my LetSpace Sinatra project. 
+LetSpace is a web application for landlords to manage their properties and tenants to view available properties in the market as well as to review on properties that they are living or lived in the past. This is an improved version from my LetSpace Sinatra project. 
 
 
  Installing
