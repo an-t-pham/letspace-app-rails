@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get  '/signup' => 'users#new'
   post '/logout' => 'sessions#destroy'
   
+  get '/properties/search' => 'properties#search', :as =>'search_properties'
 
   get '/auth/google_oauth2/callback' => 'sessions#omniauth'
 
@@ -35,7 +36,7 @@ Rails.application.routes.draw do
 
   resources :properties, only: [:index, :show]
    post '/properties' => 'properties#filter_properties', :as => 'filter_properties'
-  
+   
   
 
   

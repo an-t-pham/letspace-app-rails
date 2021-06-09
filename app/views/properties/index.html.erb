@@ -4,6 +4,14 @@
             </div>
         
 </nav>
+
+<%= form_with url: search_properties_path, method: :get do |form| %>
+  <%= form.label :query, "Search for:" %>
+  <%= form.text_field :query %>
+  <%= form.submit "Search" %>
+<% end %>
+
+
   <div class='pt-3 pl-3'> 
    <%= form_for @property do |f| %>
      <%= f.select :filter, ['Highest Rating', 'Lowest Rating', 'Cheapest', 'Most Expensive'], {:prompt => 'Pick a filter option'}, {:class => "border border-pink text-pink"} %>
