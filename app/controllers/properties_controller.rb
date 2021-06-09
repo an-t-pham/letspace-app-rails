@@ -142,6 +142,10 @@ class PropertiesController < ApplicationController
            end
     end
 
+    def search
+       @property =  Property.where("lower(address) LIKE ?", params[:query])
+    end
+
   
 
     def destroy
