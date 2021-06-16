@@ -1,4 +1,5 @@
 # WELCOME TO LETSPACE!
+![alt text](https://github.com/an-t-pham/letspace-app-rails/blob/main/app/assets/images/front%20page.png) </br>
 
  Summary
 
