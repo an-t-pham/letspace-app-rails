@@ -6,6 +6,12 @@
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "An app to build a bridge between landlords and tenants" %>">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+   
+    <meta name="title" property="og:title" content="LetSpace App" />
+    <meta property="og:type" content="Website" />
+    <meta name="image" property="og:image" content="https://live.staticflickr.com/65535/51253805786_9d6dc7636b_k.jpg" />
+    <meta name="description" property="og:description" content="An app to build a bridge between landlords and tenants" />
+    <meta name="author" content="An Pham" />
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
